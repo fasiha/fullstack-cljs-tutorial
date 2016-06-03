@@ -1,4 +1,4 @@
-(ns web-tutorial.components
+(ns fullstack-cljs-tutorial.components
   (:require [sablono.core :as sab]))
 
 (defn like-seymore [data-atom]

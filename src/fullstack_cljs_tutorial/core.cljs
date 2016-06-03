@@ -1,6 +1,6 @@
-(ns web-tutorial.core
+(ns fullstack-cljs-tutorial.core
   (:require [sablono.core :as sab]
-            [web-tutorial.components :refer [like-seymore]]))
+            [fullstack-cljs-tutorial.components :refer [like-seymore]]))
 
 (defonce app-state (atom { :likes 0 }))
 

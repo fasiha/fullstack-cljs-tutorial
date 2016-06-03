@@ -29,4 +29,4 @@ Compiled assets placed in `resources/public`.
 # Notes
 
 ## Rename
-To rename the project from `web-tutorial` to whatever else, find and replace all references to `web-tutorial` with the new name in cljs and clj files (don't forget `project.clj`; handy Bash tip: `$ grep -rsn web-tutorial *`), then rename the `src/web_tutorial` directory appropriately (remember, dashes in Clojure namespaces must be replaced by underscores `_`).
+To rename the project from `fullstack-cljs-tutorial` to whatever else, find and replace all references to `fullstack-cljs-tutorial` with the new name in cljs and clj files (don't forget `project.clj`; handy Bash tip: `$ grep -rsn fullstack-cljs-tutorial *`), then rename the `src/fullstack-cljs_tutorial` directory appropriately (remember, dashes in Clojure namespaces must be replaced by underscores `_`).
