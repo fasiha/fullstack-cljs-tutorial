@@ -1,4 +1,4 @@
-(ns sente-tutorial.components
+(ns web-tutorial.components
   (:require [sablono.core :as sab]))
 
 (defn like-seymore [data-atom]

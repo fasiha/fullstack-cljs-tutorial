@@ -1,6 +1,6 @@
-(ns sente-tutorial.core
+(ns web-tutorial.core
   (:require [sablono.core :as sab]
-            [sente-tutorial.components :refer [like-seymore]]))
+            [web-tutorial.components :refer [like-seymore]]))
 
 (defonce app-state (atom { :likes 0 }))
 

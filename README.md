@@ -2,14 +2,18 @@
 
 This repository is based on Bruce Hauman's Figwheel quick-start project [[GitHub](https://github.com/bhauman/lein-figwheel/wiki/Quick-Start)], but updated to use a recent Sablono and React and ReactDOM.
 
+I intend to use it to demonstrate some ClojureScript-specific topics.
+
 # Build instructions
 
 ## Development mode with Figwheel and auto-code-reload
 
 ```
 $ lein clean
-$ lein figwheel dev
+$ rlwrap lein figwheel dev
 ```
+
+(`rlwrap` is recommended but not required: it gives you arrow-key support and history. Install with brew: `$ brew install rlwrap`.)
 
 Then open [localhost:5309](http://localhost:5309).
 
@@ -25,4 +29,4 @@ Compiled assets placed in `resources/public`.
 # Notes
 
 ## Rename
-To rename the project from `sente-tutorial` to whatever else, find and replace all references to `sente-tutorial` with the new name in cljs and clj files (including `project.clj`), then rename the `src/sente_tutorial` directory appropriately (remember, dashes in Clojure namespaces must be replaced by underscores `_`).
+To rename the project from `web-tutorial` to whatever else, find and replace all references to `web-tutorial` with the new name in cljs and clj files (including `project.clj`), then rename the `src/web_tutorial` directory appropriately (remember, dashes in Clojure namespaces must be replaced by underscores `_`).
