@@ -5,10 +5,12 @@
                  [cljsjs/react "15.0.0-0"]
                  [cljsjs/react-dom "15.0.0-0"]
 
+                 [org.clojure/core.async "0.2.374"]
                  [http-kit "2.2.0-alpha1"]
                  [compojure "1.5.0"]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.2.0"]
+                 [com.taoensso/sente "1.8.1"]
                  ]
   :min-lein-version "2.5.3"
   :source-paths ["src"]
