@@ -4,8 +4,15 @@
                  [sablono "0.7.2"]
                  [cljsjs/react "15.0.0-0"]
                  [cljsjs/react-dom "15.0.0-0"]
+
+                 [http-kit "2.2.0-alpha1"]
+                 [compojure "1.5.0"]
+                 [ring "1.4.0"]
+                 [ring/ring-defaults "0.2.0"]
                  ]
   :min-lein-version "2.5.3"
+  :source-paths ["src"]
+  :main fullstack-cljs-tutorial.server
   :plugins [[lein-cljsbuild "1.1.3"]]
   :clean-targets ^{:protect false} [:target-path "resources/public/cljs"]
   :cljsbuild {:builds [{:id "dev"
