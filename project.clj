@@ -23,6 +23,7 @@
                                    :output-to  "resources/public/cljs/main.js"
                                    :output-dir "resources/public/cljs/out"}}
                        {:id "min"
+                        :jar true
                         :source-paths ["src"]
                         :compiler {:main fullstack-cljs-tutorial.core
                                    :output-to "resources/public/cljs/main.js"
@@ -31,6 +32,8 @@
                                    :pretty-print false}}]
               }
   :figwheel {:server-port 5309}
-  :profiles {:dev {:plugins [[lein-figwheel "0.5.3"]]}}
+  :profiles {:uberjar {:aot :all
+                       :prep-tasks ["compile" ["cljsbuild" "once" "min"]]}
+             :dev {:plugins [[lein-figwheel "0.5.3"]]}}
   )
 

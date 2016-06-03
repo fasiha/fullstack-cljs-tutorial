@@ -6,7 +6,8 @@
                                               site-defaults
                                               api-defaults]]
             [ring.middleware.resource :refer [wrap-resource]]
-            [ring.middleware.reload :refer [wrap-reload]]))
+            [ring.middleware.reload :refer [wrap-reload]])
+  (:gen-class))
 
 (def PORT 5300)
 
