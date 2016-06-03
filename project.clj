@@ -1,15 +1,16 @@
 (defproject fullstack-cljs-tutorial "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.9.0-alpha3"]
-                 [org.clojure/clojurescript "1.9.14"]
+                 [org.clojure/clojurescript "1.9.36"]
+                 [com.cognitect/transit-clj "0.8.285"]
                  [sablono "0.7.2"]
                  [cljsjs/react "15.0.0-0"]
                  [cljsjs/react-dom "15.0.0-0"]
 
-                 [org.clojure/core.async "0.2.374"]
                  [http-kit "2.2.0-alpha1"]
                  [compojure "1.5.0"]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.2.0"]
+                 [org.clojure/core.async "0.2.374"]
                  [com.taoensso/sente "1.8.1"]
                  ]
   :min-lein-version "2.5.3"

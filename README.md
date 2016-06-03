@@ -5,6 +5,9 @@ This repository is based on Bruce Hauman's Figwheel quick-start project [[GitHub
 I intend to use it to demonstrate some ClojureScript-specific topics.
 
 # Build instructions
+Install [leiningen](http://leiningen.org/#install).
+
+In the following, any commands starting with `$ ` indicates it should be run in a shell terminal.
 
 ## Development mode with Figwheel's auto-code-reload
 
@@ -14,12 +17,14 @@ $ lein clean
 $ rlwrap lein figwheel dev
 ```
 
-(`rlwrap` is recommended but not required: it gives you arrow-key support and history. Install with brew: `$ brew install rlwrap`.)
+(`rlwrap` is not required but recommended: it gives you arrow-key support and history. If on Mac with brew, install with: `$ brew install rlwrap`.)
 
 Figwheel compiles your ClojureScript code and puts it into `resource/public/cljs/`. It also starts a Figwheel server that the compiled ClojureScript app knows to connect to as soon as its opened in a browser. As you edit and save ClojureScript files, Figwheel automatically recompiles them to JavaScript and tells your browser to reload them.
 
+The above commands open a ClojureScript REPL connected to your browser session.
+
 ### Step 2: start webserver
-In another tab,
+In another terminal,
 ```
 $ lein run
 ```
@@ -57,4 +62,4 @@ This starts the webserver and will host your ClojureScript application when conn
 # Notes
 
 ## Rename
-To rename the project from `fullstack-cljs-tutorial` to whatever else, find and replace all references to `fullstack-cljs-tutorial` with the new name in cljs and clj files (don't forget `project.clj`; handy Bash tip: `$ grep -rsn fullstack-cljs-tutorial *`), then rename the `src/fullstack-cljs_tutorial` directory appropriately (remember, dashes in Clojure namespaces must be replaced by underscores `_`).
+To rename the project from `fullstack-cljs-tutorial` to whatever else, find and replace all references to `fullstack-cljs-tutorial` with the new name in cljs and clj files (don't forget `project.clj`; handy shell tip: `$ grep -rsn fullstack-cljs-tutorial *`), then rename the `src/fullstack_cljs_tutorial` directory appropriately (remember, dashes in Clojure namespaces must be replaced by underscores `_`).
