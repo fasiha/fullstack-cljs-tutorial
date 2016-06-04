@@ -38,7 +38,6 @@
 ; ask for current status: make this explicily depend on chsk-state because,
 ; while just sending this message willy-nilly seems to work in debug mode, it
 ; doesn't in optimized mode.
-(println @comm/chsk-state)
 (add-watch comm/chsk-state
            :on-open
            (fn [_ _ _ {:keys [open?]}]
