@@ -8,8 +8,7 @@
 ; for `println` to work
 (def debug?
   ^boolean js/goog.DEBUG)
-(when debug?
-  (enable-console-print!))
+(enable-console-print!)
 
 ; React!
 
@@ -36,6 +35,13 @@
              (swap! app-state assoc :likes (-> msg :?data second))))
          (recur))
 
-; ask for current status
-(comm/chsk-send! [:seymore/likes?])
+; ask for current status: make this explicily depend on chsk-state because,
+; while just sending this message willy-nilly seems to work in debug mode, it
+; doesn't in optimized mode.
+(println @comm/chsk-state)
+(add-watch comm/chsk-state
+           :on-open
+           (fn [_ _ _ {:keys [open?]}]
+             (when open?
+               (comm/chsk-send! [:seymore/likes?]))))
 

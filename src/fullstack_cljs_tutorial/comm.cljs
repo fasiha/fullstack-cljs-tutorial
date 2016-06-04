@@ -12,7 +12,5 @@
   (def chsk-state state)   ; Watchable, read-only atom
   )
 
-#_(do
-    ; in figwheel REPL:
-    (#'fullstack-cljs-tutorial.comm/chsk-send! [:my/message ["hello" {:stranger "!"}]])
-    )
+; Try in figwheel REPL:
+; (#'fullstack-cljs-tutorial.comm/chsk-send! [:my/message ["hello" {:stranger "!"}]])
