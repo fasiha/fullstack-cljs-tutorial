@@ -1,32 +1,46 @@
 (ns fullstack-cljs-tutorial.core
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [sablono.core :as sab]
             [fullstack-cljs-tutorial.components :refer [like-seymore]]
-            [taoensso.sente :as sente]))
+            [fullstack-cljs-tutorial.comm :as comm]
+            [cljs.core.async :as a :refer [<!]]))
 
-(defonce app-state (atom { :likes 0 }))
+; for `println` to work
+(def debug?
+  ^boolean js/goog.DEBUG)
+(enable-console-print!)
 
-(defn render! []
+; React!
+
+(defonce client-state (atom { :likes 0 }))
+
+(defn render! [state]
   (.render js/ReactDOM
-           (like-seymore app-state)
+           (like-seymore state)
            (.getElementById js/document "app")))
 
-(add-watch app-state :on-change (fn [_ _ _ _] (render!)))
+(add-watch client-state :on-change (fn [_ _ _ current] (render! current)))
 
-(render!)
+(render! @client-state)
 
-;; Sente
-(let [{:keys [chsk ch-recv send-fn state]}
-      (sente/make-channel-socket! "/chsk" ; Note the same path as before
-       {:type :auto ; e/o #{:auto :ajax :ws}
-       })]
-  (def chsk       chsk)
-  (def ch-chsk    ch-recv) ; ChannelSocket's receive channel
-  (def chsk-send! send-fn) ; ChannelSocket's send API fn
-  (def chsk-state state)   ; Watchable, read-only atom
-  )
+; Sente & update
 
-#_(do
-    ; in figwheel REPL:
-    (in-ns 'fullstack-cljs-tutorial.core)
-    (chsk-send! [:my/message ["hello" {:stranger "!"}]])
-    )
+(go-loop []
+         (let [msg (<! comm/ch-chsk)]
+           (println "Browser received" (select-keys msg [:event :?data]))
+           (when (some-> msg
+                         :?data
+                         first
+                         (= :seymore/likes))
+             (swap! client-state assoc :likes (-> msg :?data second))))
+         (recur))
+
+; ask for current status: make this explicily depend on chsk-state because,
+; while just sending this message willy-nilly seems to work in debug mode, it
+; doesn't in optimized mode.
+(add-watch comm/chsk-state
+           :on-open
+           (fn [_ _ _ {:keys [open?]}]
+             (when open?
+               (comm/chsk-send! [:seymore/likes?]))))
+

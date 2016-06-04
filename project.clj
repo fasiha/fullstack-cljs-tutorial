@@ -12,6 +12,7 @@
                  [ring/ring-defaults "0.2.0"]
                  [org.clojure/core.async "0.2.374"]
                  [com.taoensso/sente "1.8.1"]
+                 [org.clojure/tools.nrepl "0.2.11"]
                  ]
   :min-lein-version "2.5.3"
   :source-paths ["src"]

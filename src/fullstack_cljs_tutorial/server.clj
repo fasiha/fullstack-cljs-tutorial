@@ -13,11 +13,15 @@
             [taoensso.sente.server-adapters.http-kit
              :refer (sente-web-server-adapter)]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-            [ring.middleware.params :refer [wrap-params]])
+            [ring.middleware.params :refer [wrap-params]]
+
+            [clojure.tools.nrepl.server :refer [start-server stop-server]])
   (:gen-class))
 
 (def PORT 5300)
+(def NREPL-PORT 5301)
 
+(def server-state (atom {:likes 0}))
 
 ;; Sente stuff
 (let [{:keys [ch-recv send-fn ajax-post-fn ajax-get-or-ws-handshake-fn
@@ -34,9 +38,36 @@
   (GET  "/chsk" req (ring-ajax-get-or-ws-handshake req))
   (POST "/chsk" req (ring-ajax-post                req)))
 
+(defn broadcast [message]
+  (doseq [uid (:any @connected-uids)]
+    (chsk-send! uid message)))
+
+(defn broadcast-seymore [state]
+  (broadcast [:seymore/likes (:likes state)]))
+
 (go-loop []
-         (println "Server received: " (<! ch-chsk))
+         (let [obj (<! ch-chsk)]
+           (println "Server received: " (select-keys obj [:event :?data]))
+
+           (when (some-> obj
+                         :event
+                         first
+                         (= :seymore/likes?))
+             (broadcast-seymore @server-state))
+
+           (when (some-> obj
+                       :event
+                       (= [:seymore/like 1]))
+             (swap! server-state update :likes inc)))
          (recur))
+
+(add-watch server-state
+           :on-change
+           (fn [_ _ _ curr]
+             (broadcast-seymore curr)))
+
+; Try in nrepl & check browser JS console:
+; (#'fullstack-cljs-tutorial.server/broadcast [:whee/whoo {:yo "wup!"}])
 
 ;; Application routes
 (defroutes app-routes
@@ -55,5 +86,7 @@
 
 (defn -main [& args]
   (http-kit/run-server handler {:port PORT})
-  (println (str "Server started: http://127.0.0.1:" PORT "/index.html")))
+  (println (str "Server started: http://127.0.0.1:" PORT "/index.html"))
+  (start-server :bind "0.0.0.0" :port NREPL-PORT)
+  (println (str "nRepl server started: `lein repl :connect " NREPL-PORT "`")))
 
