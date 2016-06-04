@@ -12,14 +12,14 @@
 
 ; React!
 
-(defonce app-state (atom { :likes 0 }))
+(defonce client-state (atom { :likes 0 }))
 
 (defn render! []
   (.render js/ReactDOM
-           (like-seymore app-state)
+           (like-seymore client-state)
            (.getElementById js/document "app")))
 
-(add-watch app-state :on-change (fn [_ _ _ _] (render!)))
+(add-watch client-state :on-change (fn [_ _ _ _] (render!)))
 
 (render!)
 
@@ -32,7 +32,7 @@
                          :?data
                          first
                          (= :seymore/likes))
-             (swap! app-state assoc :likes (-> msg :?data second))))
+             (swap! client-state assoc :likes (-> msg :?data second))))
          (recur))
 
 ; ask for current status: make this explicily depend on chsk-state because,
