@@ -14,14 +14,14 @@
 
 (defonce client-state (atom { :likes 0 }))
 
-(defn render! []
+(defn render! [state]
   (.render js/ReactDOM
-           (like-seymore client-state)
+           (like-seymore state)
            (.getElementById js/document "app")))
 
-(add-watch client-state :on-change (fn [_ _ _ _] (render!)))
+(add-watch client-state :on-change (fn [_ _ _ current] (render! current)))
 
-(render!)
+(render! @client-state)
 
 ; Sente & update
 
