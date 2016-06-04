@@ -26,7 +26,6 @@
 
 ; Sente & update
 
-; ask for current status
 (go-loop []
          (let [msg (<! comm/ch-chsk)]
            (println "Browser received" (select-keys msg [:event :?data]))
@@ -37,6 +36,6 @@
              (swap! app-state assoc :likes (-> msg :?data second))))
          (recur))
 
+; ask for current status
 (comm/chsk-send! [:seymore/likes?])
-
 
